@@ -1,0 +1,173 @@
+@keyframes header-menu-anim
+{
+    0%
+    {
+        right: 0px;
+    }
+    25%
+    {
+        right: 10px;
+    }
+    50%
+    {
+        right: 0;
+    }
+}
+i.bx-menu
+{
+    opacity: 0;
+}
+.body-background
+{
+    position: fixed;
+	background: #121212;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+.body-background img
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#topbar-brand
+{
+	opacity: 0;
+	transition: all 0.3s ease;
+}
+.header-container
+{
+	--header-color-1: #fff;
+	--header-color-2: #ffffff90;
+	background: none;
+	width: 100%;
+	height: 150%;
+	min-height: 200px;
+	overflow: hidden;
+}
+.header-container .header-menu
+{
+    margin-right: 10px;
+    position: relative;
+    right: 0;
+    opacity: 1;
+    top: 20%;
+    color: #fff;
+    text-align: right;
+    animation: header-menu-anim 2s infinite;
+    transition: all 0.5s ease;
+}
+.header-container .header-menu.scrolled
+{
+    opacity: 0;
+    top: 0%;
+    right: -100%;
+}
+.header-container .header-menu .header-menu-item
+{
+    margin-bottom: 10px;
+}
+.header-container .header-menu .header-menu-item a
+{
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-style: bold;
+}
+.header-container .header-menu .header-menu-item a:hover
+{
+    font-size: 18px;
+}
+.header-container .header-brand
+{
+	width: calc(100% - 20px);
+	margin: 10px;
+	position: relative;
+	top: 40px;
+	opacity: 1;
+	transition: all 0.5s ease;
+}
+.header-container .header-brand.scrolled
+{
+    opacity: 0;
+    left: -100%;
+    top: 0%;
+}
+.header-container .brand-text-cont
+{
+	width: auto;
+	font-size: 25px;
+	font-weight: 1000;
+}
+.header-container .brand-text-cont:hover
+{
+	/*font-size: 23px;
+	transition: all 0.5s ease;*/
+}
+.header-container .brand-text-cont:hover .spell-1::after,
+.header-container .brand-text-cont .spell-full.spell-1::after
+{
+	content: 'swanth';
+	display: inline-block;
+	width: 85px;
+	opacity: 1;
+}
+.header-container .brand-text-cont:hover .spell-2
+{
+	
+}
+.header-container .brand-text-cont .spell-1::after
+{
+	content: '';
+	display: inline-block;
+	width: 0px;
+	opacity: 0;
+	margin: 0px;
+	transition: all 0.5s ease;
+}
+.header-container .brand-text-cont .spell
+{
+	display: inline-block;
+	margin: 0px;
+	padding: 0px;
+	transition: all 0.5s ease;
+}
+.header-container .brand-text-cont .spell-1
+{
+	color: var(--color-accent-2);
+}
+.header-container .brand-text-cont .spell-2
+{
+	color: var(--color-accent-3);
+}
+.header-container .brand-text-cont .spell-3
+{
+	color: var(--color-accent-1);
+}
+.header-container .brand-text-cont .spell-4
+{
+	color: var(--header-color-1);
+	font-size: 18px;
+}
+.slogan-text
+{
+	color: var(--header-color-2);
+	font-size: 14px;
+	font-family: 'Sans Serif Pro',Sans-Serif;
+}
+.brand-icon
+{
+	display: none;
+	width: 60px;
+	background: #12121210;
+	box-shadow: 0.5px 0.5px 10px #12121210;
+	border-radius: 30% 0px 0px 30%;
+	padding: 10px;
+}

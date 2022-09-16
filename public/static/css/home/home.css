@@ -1,0 +1,59 @@
+.topbar
+{
+	background: none;
+	box-shadow: none;
+}
+.block
+{
+	width: calc(100% - 20px);
+	height: auto;
+	padding: 10px;
+/*	box-shadow: 1px 1px 10px #ffffff90;*/
+}
+.block-white
+{
+	background: #fff;
+}
+.color-white
+{
+	color: #fff;
+}
+.home-blocks
+{
+    opacity: 0;
+    width: calc(100% - 20px);
+    height: auto;
+    padding: 10px;
+}
+.home-blocks h3
+{
+    text-align: center;
+}
+#home-block-1
+{
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    left: -100%;
+    transition: all 0.5s ease;
+}
+#home-block-1.scrolled
+{
+    opacity: 1;
+    left: 0%;
+}
+#home-block-1.scrolled.scrolled-2
+{
+    background: #fff;
+    color: #121212;
+}
+.flex-centered
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.topbar.topbar-scrolled .menu i.bx-menu
+{
+	color: #fff;
+}
