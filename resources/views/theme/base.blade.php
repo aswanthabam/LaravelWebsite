@@ -1,7 +1,7 @@
 <!Doctype html/>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 		<title>@yield("title")</title>
 		@yield("head-beg")
 		<!-- Font styles -->
@@ -108,7 +108,7 @@
 		</div>
 		<div class="body-background-content-container">
 		<div class="body-background">
-		    <img src="/static/images/backgrounds/bg-2.jpg"></img>
+		    <img src="@yield("background-image")"></img>
 		</div>
 		<div id="container" class="container">
 			<div id="sidebar" class="sidebar">

@@ -28,6 +28,20 @@ Route::get("/admin/view/project/{project}",[ProjectsController::class,"viewProje
 
 Route::get("/admin/view/project/{project}/item/{item}",[ProjectsController::class,"viewItem"])->middleware("auth:admin")->name("view-item"); // View Project item.or version
 
+Route::get("/admin/edit/project/{project_id}",[ProjectsController::class,"editProject"])->middleware("auth:admin")->name("edit-project"); // Edit project
+
+Route::post("/admin/edit/project/{project_id}",[ProjectsController::class,"editProjectPost"])->middleware("auth:admin")->name("edit-project-post"); // Edit project
+
+Route::get("/admin/edit/project/{project_id}/item/{item_id}",[ProjectsController::class,"editItem"])->middleware("auth:admin")->name("edit-item"); // Edit project
+
+Route::post("/admin/edit/project/{project_id}/item/{item_id}",[ProjectsController::class,"editItemPost"])->middleware("auth:admin")->name("edit-item-post"); // Edit project
+
+
+
+
+
+
 Route::get("/login",[AdminController::class,"login"])->name("login"); // Login
 
 Route::post("/authenticate",[AdminController::class,"authenticate"])->name("authenticate"); // Authenticate a user
+

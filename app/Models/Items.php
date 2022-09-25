@@ -26,7 +26,9 @@ class Items extends Model
     	"view_link",
     	"keywords",
     	"release_name",
-    	"base64eq"
+    	"base64eq",
+    	"image",
+    	"author_link"
     ];
     protected $casts = [
     	"version"=>"integer",
@@ -45,10 +47,10 @@ class Items extends Model
     }
     public function latest()
     {
-    	return $this->hasOne(Items::class);
+    	return $this->hasOne(Items::class,"latest");
     }
     public function project()
     {
-    	return $this->belongsTo(Projects::class);
+    	return $this->belongsTo(Projects::class,"latest");
     }
 }

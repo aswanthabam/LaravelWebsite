@@ -1,0 +1,109 @@
+h1,h2,h3,h4,h5,h6{display: block;width: 100%;margin: 0;height:auto;}
+.readme-head
+{
+	width: calc(100% - 30px);
+	padding: 10px;
+	margin: 0px 5px 0px 5px;
+	border-radius: 10px 10px 0px 0px;
+	border-left: 1px solid #12121230;
+	border-right: 1px solid #12121230;
+	border-top: 1px solid #12121230;
+	background: #12121210;
+}
+.description 
+{
+	width: calc(100% - 20px);
+	margin: 10px;
+}
+.details
+{
+	width: calc(100% - 20px);
+	margin: 10px;
+}
+.details .table
+{
+	width: 100%;
+}
+.details .table td
+{
+	border: 1px solid #12121230;
+	padding: 5px;
+}
+.author
+{
+	width: calc(100% - 20px);
+	margin: 10px;
+	text-align: right;
+}
+.head
+{
+	width: 100%;
+	height: 250px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+.head .head-content
+{
+	position: absolute;
+	top: 70px;
+	left: 0;
+	width: 100%;
+	height: calc(100% - 70px);
+	background: linear-gradient(180deg,#00000000,#fff);
+	z-index: 0;
+}
+.head .head-content .cont > div{width: auto;height: auto;}
+.head .head-content .cont
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
+	width: calc(100% - 20px);
+	text-align: center;
+	padding: 10px;
+	position: absolute;
+	top: 125px;
+	left: 50%;
+	transform: translate(-50%,-100%);
+	background: none;
+	color: #fff;
+    mix-blend-mode: darken;
+	text-shadow: 0px 0px 20px #000,0 0 5px #000;
+}
+.head .image-bg
+{
+	width: 100%;
+	height: 100px;
+	z-index: -1;
+}
+.head .image-bg img
+{
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+}
+.topbar
+{
+	background: none;
+	box-shadow: none;
+}
+.topbar .menu i.bx-menu
+{
+	color: #fff;
+	text-shadow: 0 0 10px #12121250;
+}
+.topbar .brand img
+{
+	filter: drop-shadow(0px 0px 3px #12121250);
+}
+.topbar .brand
+{
+	opacity: 1;
+}
+.content
+{
+	margin-top: 260px;
+}

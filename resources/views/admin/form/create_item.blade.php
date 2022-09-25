@@ -30,11 +30,11 @@
 
 @section("body")
 @if($project->single_item_project)
-<center><h4>Add a version</h4></center>
+<center><h4>@isset($edit)Edit @endisset @empty($edit) Add @endempty a version</h4></center>
 @else
 <center><h4>Add an Item to project</h4></center>
 @endif
-<form class="form-control" method="post" action="/admin/add/project/{{$project_id}}/item">
+<form class="form-control" method="post" action="@empty($edit) /admin/add/project/{{$project_id}}/item @endempty @isset($edit)/admin/edit/project/{{$project->project_id}}/item/{{$item->item_id}} @endisset ">
 	@if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -45,73 +45,77 @@
     </div>
     @endif
 	@csrf
-	<!--div class="form-group">
-		<label for="project_id">Project ID</label>
-		<input type="text" name="project_id" placeholder="Item ID"/>
-	</div-->
 	@if(!$project->single_item_project)
 	<div class="form-group">
 		<label for="name">Item Name</label>
-		<input type="text" name="name" placeholder="Item Name"/>
+		<input @isset($edit) value="{{$item->name}}" @endisset type="text" name="name" placeholder="Item Name"/>
 	</div>
 	@endif
 	<div class="form-group">
 		<label for="version">Release Name *</label>
-		<input type="text" name="release_name" placeholder="Release" required/>
+		<input @isset($edit) value="{{$item->release_name}}" @endisset type="text" name="release_name" placeholder="Release" required/>
 	</div>
 	<div class="form-group">
 		<label for="version">Item Version *</label>
-		<input type="text" name="version" placeholder="Version" required/>
+		<input @isset($edit) value="{{$item->version_name}}" @endisset type="text" name="version" placeholder="Version" required/>
 	</div>
 	
 	<div class="form-group">
 		<label for="description">Item Description *</label>
-		<input type="text" name="description" placeholder="Description"@if(session("description")) value="{{session("description")}}" @endif required/>
+		<input type="text" name="description" placeholder="Description" value="@empty($edit) {{$project->description}} @endempty @isset($edit) {{$item->description}} @endisset " required/>
 	</div>
 	<div class="form-group">
 		<label for="author">Item Author</label>
-		<input type="text" name="author" placeholder="Author"@if(session("author")) value="{{session("author")}}" @endif/>
+		<input type="text" name="author" placeholder="Author" value="@empty($edit) {{$project->author}} @endempty @isset($edit) {{$item->author}} @endisset "/>
+	</div>
+	<div class="form-group">
+		<label for="author_link">Author Link</label>
+		<input type="text" name="author_link" placeholder="Author Link" value="@empty($edit) {{$project->author_link}} @endempty @isset($edit) {{$item->author_link}} @endisset "/>
 	</div>
 	<div class="form-group">
 		<label for="created_date">Created Date</label>
-		<input class="form-item-sided" id="created_date_cont" type="text" name="created_date" placeholder="Created Date" @if(session("created_at")) value="{{session("created_at")}}" @endif/>
+		<input class="form-item-sided" id="created_date_cont" type="text" name="created_date" placeholder="Created Date" value="@empty($edit) {{$project->created_at}} @endempty @isset($edit) {{$item->created_at}} @endisset "/>
 		<input class="form-item-sided-cont" id="created_date" type="date"/>
 	</div>
 	<div class="form-group">
-		<input type="checkbox" name="is_latest" value="yes"/>
-		<label for="is_latest">Is Latest *</label>
+		<input checked type="checkbox" name="is_latest" value="1"/>
+		<label for="is_latest" @isset($edit) @if($item->latest) checked @endif @endisset>Is Latest *</label>
 	</div>
 	<div class="form-group">
-		<input onchange="isDownloadable(this)" type="checkbox" name="is_downloadable" value="yes"/>
+		<input @empty($edit) checked @endempty @isset($edit) @if($item->downloadable) checked @endif @endisset onchange="isDownloadable(this)" type="checkbox" name="is_downloadable" value="1"/>
 		<label for="is_downloadable">Is Downloadable *</label>
 	</div>
-	<div id="download_link" style="display:none" class="form-group">
+	<div id="download_link" style="display:block" class="form-group">
 		<label for="download_link">Download Link</label>
-		<input type="text" name="download_link" placeholder="download_link"/>
+		<input @isset($edit) value="{{$item->download_link}}" @endisset type="text" name="download_link" placeholder="download_link"/>
 	</div>
 	<div class="form-group">
-		<input onchange="isViewable(this)" type="checkbox" name="is_viewable" value="yes"/>
+		<input @empty($edit) checked @endempty @isset($edit) @if($item->viewable) checked @endif @endisset onchange="isViewable(this)" type="checkbox" name="is_viewable" value="1"/>
 		<label for="is_viewable">Is Viewable *</label>
 	</div>
-	<div id="view_link" style="display:none"class="form-group">
+	<div id="view_link" style="display:block"class="form-group">
 		<label for="view_link">View Link</label>
-		<input type="text" name="View link" placeholder="view_link"/>
+		<input @isset($edit) value="{{$item->view_link}}" @endisset type="text" name="view_link" placeholder="view_link"/>
 	</div>
 	<div class="form-group">
-		<label for="readme">Readme File URL</label>
-		<input type="text" name="readme" placeholder="Readme file link"/>
+		<label for="readme">Description HTML</label>
+		<textarea type="text" name="readme" placeholder="Description HTML">@empty($edit) @if($project->single_item_project){{$project->readme}} @endif @endempty @isset($edit) {{$item->readme}} @endisset </textarea>
 	</div>
 	<div class="form-group">
 		<label for="keywords">Platform</label>
-		<input type="text" name="platform" placeholder="Platform"@if(session("platform")) value="{{session("platform")}}" @endif/>
+		<input type="text" name="platform" placeholder="Platform" value="@empty($edit) {{$project->platform}} @endempty @isset($edit) {{$item->platform}} @endisset "/>
+	</div>
+	<div class="form-group">
+		<label for="image">Image Link</label>
+		<input type="text" name="image" placeholder="Link" value="@empty($edit) {{$project->image}} @endempty @isset($edit) {{$item->image}} @endisset "/>
 	</div>
 	<div class="form-group">
 		<label for="keywords">Keywords (Use ',' to seperate)</label>
-		<input type="text" name="keywords" placeholder="Keywords"@if(session("keywords")) value="{{session("keywords")}}" @endif/>
+		<input type="text" name="keywords" placeholder="Keywords" value="@empty($edit) {{$project->keywords}} @endempty @isset($edit) {{$item->keywords}} @endisset "/>
 	</div>
 	<div class="form-group">
 		<label for="details">Other Details</label>
-		<input id="details-cont" type="text" name="details" @if(session("details")) value="{{session("details")}}" @endif hidden/>
+		<input id="details-cont" type="text" name="details" value="@empty($edit) {{$project->details}} @endempty @isset($edit) {{$item->details}} @endisset " hidden/>
 		<table style="display:none" id="details-items" class="table">
 			<tr class="head">
 				<td>Key</td>
@@ -129,6 +133,7 @@
 @endsection
 
 @section("script")
+otherDetails = {}
 init();
 function init()
 {
@@ -147,7 +152,6 @@ function init()
    item.appendChild(tr)
 	}
 }
-otherDetails = {}
 function addData(elem)
 {
    var key = document.getElementById("key")
@@ -165,6 +169,8 @@ function addData(elem)
    item.appendChild(tr)
    otherDetails[key.value] = value.value;
    cont.value = JSON.stringify(otherDetails);
+   key.value = "";
+   value.value = "";
 }
 function isDownloadable(elem)
 {

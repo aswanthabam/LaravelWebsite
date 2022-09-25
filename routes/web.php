@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProjectsControllerPublic;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,8 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get("",[HomeController::class,"home"])->name("home");
+Route::get("/projects/{project_name}",[ProjectsControllerPublic::class,"viewProject"])->name("view-project");
+Route::get("/projects/{project_id}/{item_id}",[ProjectsControllerPublic::class,"viewItem"])->name("view-item");
+Route::get("/item/{item_id}",[ProjectsControllerPublic::class,"viewItem"])->name("view-item");
 
 include __DIR__."/admin.php";

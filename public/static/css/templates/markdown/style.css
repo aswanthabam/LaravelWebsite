@@ -1,0 +1,26 @@
+.readme
+{
+	width: 100%;
+	height: auto;
+}
+.readme h1
+{
+	display: block;
+	width: calc(100% - 10px);
+	border-bottom: 5px solid #12121230;
+	margin: 5px;
+	font-size: 20px;
+	
+}
+.readme h1:after
+{
+	content: '';
+	display: block;
+	position: relative;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: red;
+	z-index: 5;
+}

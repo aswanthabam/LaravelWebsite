@@ -14,11 +14,14 @@ AVC Tech
 </script>
 
 @endsection
+@section("background-image")
+/static/images/backgrounds/bg-2.jpg
+@endsection
 @section("script-onscroll")
 /*
 if(window.scrollY >= window.innerHeight/3 - 20) $('#home-button-1')[0].classList.add("scrolled");
 else $('#home-button-1')[0].classList.remove("scrolled");*/
-if(window.scrollY >= 100)
+if(window.scrollY >= 50)
 {
     $(".header-menu")[0].classList.add("scrolled");
     $(".header-brand")[0].classList.add("scrolled");
@@ -58,10 +61,13 @@ obj.start(2000)
     <div id="home-block-1" class="home-blocks">
         <h3>Projects</h3>
         <div class="projects">
-            <h4>TextFlowJS</h4>
-            <p>
-                Text Flow JS is a javascript library to give an aesthetic look to your website. by making the text feel like moving or typing.
-            </p>
+        	@foreach($projects as $pro)
+            <div class="project-item">
+            	<h4>{{$pro->name}}</h4>
+            	<p>{{$pro->description}}</p>
+            	<div class="view-link"><a href="/projects/{{$pro->project_id}}">View More >></a></div>
+            </div>
+            @endforeach
         </div>
     </div>
 </div>

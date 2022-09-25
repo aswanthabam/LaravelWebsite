@@ -22,7 +22,10 @@ class Projects extends Model
     	"readme",
     	"author",
     	"platform",
-    	"keywords"
+    	"keywords",
+    	"image",
+    	"author_link",
+    	"details"
     ];
     
     protected $casts = [
@@ -34,15 +37,14 @@ class Projects extends Model
     	"item_count"=>"integer",
     	"is_latest"=>"boolean",
     	"single_item_project"=>"boolean",
-    	"deatils"=>Json::class,
     ];
     public function user_id()
     {
     	return $this->hasOne(User::class);
     }
-    public function latest()
+    public function latestItem()
     {
-    	return $this->hasOne(Items::class);
+    	return $this->hasOne(Items::class,"latest");
     }
     public function items()
     {

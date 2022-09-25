@@ -74,12 +74,12 @@ function setTopbar()
 function showTopBar()
 {
     topbar.classList.add("topbar-scrolled");
-    document.getElementById("topbar-brand").style.opacity="1";
+    //document.getElementById("topbar-brand").style.opacity="1";
 }
 function hideTopBar()
 {
     topbar.classList.remove("topbar-scrolled");
-    document.getElementById("topbar-brand").style.opacity="0";
+   // document.getElementById("topbar-brand").style.opacity="0";
 }
 function setUp()
 {

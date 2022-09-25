@@ -1,8 +1,13 @@
+:root
+{
+	--header-margin: 0px;
+}
+/*{outline: 1px solid green;}*/
 @keyframes header-menu-anim
 {
     0%
     {
-        right: 0px;
+        right: 0;
     }
     25%
     {
@@ -37,7 +42,7 @@ i.bx-menu
     height: 100%;
     object-fit: cover;
 }
-#topbar-brand
+.brand
 {
 	opacity: 0;
 	transition: all 0.3s ease;
@@ -51,18 +56,22 @@ i.bx-menu
 	height: 150%;
 	min-height: 200px;
 	overflow: hidden;
+	margin: 0;
 }
 .header-container .header-menu
 {
+	width: auto;
     margin-right: 10px;
     position: relative;
     right: 0;
     opacity: 1;
-    top: 20%;
+    top: 50vh;
     color: #fff;
     text-align: right;
     animation: header-menu-anim 2s infinite;
     transition: all 0.5s ease;
+    transform: translate(0%,calc(-100% + 15px));
+    text-shadow: 1px 1px 10px #121212;
 }
 .header-container .header-menu.scrolled
 {
@@ -89,10 +98,11 @@ i.bx-menu
 {
 	width: calc(100% - 20px);
 	margin: 10px;
-	position: relative;
-	top: 40px;
+	position: absolute;
+	top: 50%;
 	opacity: 1;
 	transition: all 0.5s ease;
+	transform: translate(0,-50%);
 }
 .header-container .header-brand.scrolled
 {
@@ -170,4 +180,40 @@ i.bx-menu
 	box-shadow: 0.5px 0.5px 10px #12121210;
 	border-radius: 30% 0px 0px 30%;
 	padding: 10px;
+}
+
+@media only screen and  (min-width: 700px)
+{
+	:root
+    {
+    	--header-margin: 100px;
+    }
+	.header-container
+    {
+    	width: calc(100% - 300px);
+    	min-width: 0;
+    	margin: 0 100px 0 100px;
+    }
+    .header-container .header-brand
+    {
+    	width: calc(100% - 220px);
+    }
+    .header-container .header-menu
+    {
+    /*	right: 100px;
+    	transform: translate(-100%,-50%);*/
+    }
+	.header-container .brand-text-cont .spell
+    {
+    	font-size: 35px;
+    }
+    .header-container .brand-text-cont .spell-full.spell-1::after
+    {
+    	width: 120px;
+    }
+    .header-container .brand-text-cont:hover .spell-1::after,
+    .header-container .brand-text-cont .spell-full.spell-1::after
+    {
+    	width: 120px;
+    }
 }
