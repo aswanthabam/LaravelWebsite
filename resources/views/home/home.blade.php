@@ -68,6 +68,7 @@ obj.start(2000)
             	<div class="view-link"><a href="/projects/{{$pro->project_id}}">View More >></a></div>
             </div>
             @endforeach
+            <div class="view-all"><a href="/projects">More ></a></div>
         </div>
     </div>
 </div>

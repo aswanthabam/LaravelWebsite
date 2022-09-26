@@ -44,6 +44,32 @@
 	text-decoration: none;
 	color: var(--color-accent-1);
 }
+.view-all
+{
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+	background: #12121280;
+	border-radius: 25px;
+	width: calc(50% - 20px);
+	height: 50px;
+	padding: 10px;
+	text-align: center;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.view-all a
+{
+  text-decoration: none;
+	color: var(--color-accent-1);
+}
+.view-all a:hover 
+{
+  text-decoration: none;
+	color: var(--color-accent-2);
+}
 .block-white
 {
 	background: #fff;

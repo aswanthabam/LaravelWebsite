@@ -1,19 +1,19 @@
 <div id="header" class="header-container">
     <div class="header-menu">
         <div onclick="openMenu()" class="header-menu-item">
-            <a href="#">Menu > </a>
+            <a href="#">Menu &gt; </a>
         </div>
         <div class="header-menu-item">
-            <a href="projects">Projects > </a>
+            <a href="/projects">Projects &gt; </a>
         </div>
         <div class="header-menu-item">
-            <a href="downloads">Downloads > </a>
+            <a href="downloads">Downloads &gt; </a>
         </div>
         <div class="header-menu-item">
-            <a href="contact">Contact > </a>
+            <a href="contact">Contact &gt; </a>
         </div>
         <div class="header-menu-item">
-            <a href="about">About > </a>
+            <a href="about">About &gt; </a>
         </div>
     </div>
 	<div class="header-brand">

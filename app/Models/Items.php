@@ -51,6 +51,6 @@ class Items extends Model
     }
     public function project()
     {
-    	return $this->belongsTo(Projects::class,"latest");
+    	return $this->hasOne(Projects::class,"latest");
     }
 }

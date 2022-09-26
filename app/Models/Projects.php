@@ -38,13 +38,21 @@ class Projects extends Model
     	"is_latest"=>"boolean",
     	"single_item_project"=>"boolean",
     ];
+    public function multi()
+    {
+      return $thiss->hasOne(MultiItems::class,"project_id");
+    }
+    public function allItems()
+    {
+      return $this->hasMany(Items::class,"project_id");
+    }
     public function user_id()
     {
     	return $this->hasOne(User::class);
     }
     public function latestItem()
     {
-    	return $this->hasOne(Items::class,"latest");
+    	return $this->belongsTo(Items::class,"latest");
     }
     public function items()
     {

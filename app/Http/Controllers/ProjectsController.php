@@ -41,7 +41,6 @@ class ProjectsController extends Controller
     	$item->downloadable = $request->boolean("is_downloadable");
     	$item->viewable = $request->boolean("is_viewable");
     	$item->is_latest = $request->boolean("is_latest");
-    	
     	if($item->is_latest)
     	{
     		$item->latest = $item->id;
@@ -55,8 +54,11 @@ class ProjectsController extends Controller
     			return redirect("admin/edit/project/".project_id."/item")->with("status","No other latest item found!");
     		}
     	}
-    	$item->save();
-    	//$project->save();
+    	if(!$project->single_item_project)
+    	{
+    	  $project->items()->save($item);
+    	}
+    	$project->save();
     	return redirect("admin")->with("status","Item saved");
     }
     public function editItem(Request $request,$project_id,$item_id)
