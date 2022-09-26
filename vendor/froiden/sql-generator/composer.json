@@ -1,0 +1,20 @@
+{
+    "name": "froiden/sql-generator",
+    "description": "convert Laravel migrations to raw SQL scripts",
+    "authors": [
+        {
+            "name": "Jayant Soni",
+            "email": "jayant@froiden.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Froiden\\SqlGenerator\\": "src",
+            "Froiden\\SqlGenerator\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "laravel/framework": ">= 5.3"
+    },
+    "license": "MIT"
+}
