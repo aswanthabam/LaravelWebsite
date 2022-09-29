@@ -1,0 +1,23 @@
+.project
+{
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px #12121230;
+  padding: 10px;
+  margin-top: 10px;
+}
+.btn
+{
+  height: 35px;
+  font-size: 15px;
+  margin: 5px;
+}
+.projects
+{
+  margin-top: 10px;
+}
+.card{margin-bottom: 10px;}
+h4{font-weight: 900;}
+h5{font-weight: 600;}
+h4,h5{font-size: 17px;margin: 0;padding:0}
+small{color:#12121260;font-size:13px;}
+.btn-danger{background: #fbb6ae;color:red;}

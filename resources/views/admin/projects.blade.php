@@ -5,17 +5,15 @@
 
 
 @section("body")
-<h5><b>Welcome {{$user->name}}</b></h5>
-<a class="btn btn-primary" href="/admin/add/project">New project</a>
 <div class="projects">
-<h4>Projects</h4>
+<h2>Projects</h2>
 @foreach($projects as $pro)
 <div class="project">
   <div class="head col-12">
     <h5>{{$pro->name}}</h5>
     <small>{{$pro->project_id}}</small><br/>
     <small>Created on : {{$pro->added_on}}</small>
-    <small>Updared on : {{$pro->changed_on}}</small>
+    <small>Updated on : {{$pro->changed_on}}</small>
     @if($pro->single_item_project) 
     <div class="col-12">
       Latest : @if($pro->latestItem != null) <a href="/admin/view/project/{{$pro->project_id}}/item/{{$pro->latestItem->item_id}}">{{$pro->latestItem->release_name}}</a> @else <a href="/admin/add/project/{{$pro->project_id}}/item">New release</a> @endif

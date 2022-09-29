@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Utils\StringUtils;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Items>
  */
@@ -32,10 +33,10 @@ class ItemsFactory extends Factory
         for($i = 0;$i < $mm;$i++) $keywords = $keywords.Str::random(random_int(3,6)).", ";
         return [
           "project_id"=>Str::random(10),
-          "name"=>Str::random(10),
+          "name"=>StringUtils::paragraph(random_int(1,3)),
           "version_name"=>"v".random_int(0,9).".".random_int(0,9).".".random_int(0,9),
-          "description"=>Str::random(300),
-          "readme"=>Str::random(1000),
+          "description"=>StringUtils::paragraph(20),
+          "readme"=>StringUtils::paragraph(200),
           "author"=>Str::random(10),
           "platform"=>Str::random(5),
           "details"=>$detail,
@@ -47,7 +48,7 @@ class ItemsFactory extends Factory
           "version"=>random_int(1,20),
           "author_link"=>"https://google.com",
           "project"=>"Null",
-          "release_name"=>Str::random(10),
+          "release_name"=>StringUtils::paragraph(random_int(1,3)),
         ];
     }
 }

@@ -53,4 +53,8 @@ class Items extends Model
     {
     	return $this->hasOne(Projects::class,"latest");
     }
+    public function multi()
+    {
+      return $this->belongsTo(MultiItems::class,"multi_id");
+    }
 }

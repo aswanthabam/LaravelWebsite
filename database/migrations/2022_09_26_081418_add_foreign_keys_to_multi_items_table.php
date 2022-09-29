@@ -14,7 +14,7 @@ class AddForeignKeysToMultiItemsTable extends Migration
     public function up()
     {
         Schema::table('multi_items', function (Blueprint $table) {
-            $table->foreign(['project_id'], '')->references(['id'])->on('projects')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['project_id'], '')->references(['id'])->on('projects')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 

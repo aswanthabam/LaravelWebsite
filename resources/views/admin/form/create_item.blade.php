@@ -34,7 +34,21 @@
 @else
 <center><h4>Add an Item to project</h4></center>
 @endif
-<form class="form-control" method="post" action="@empty($edit) /admin/add/project/{{$project_id}}/item @endempty @isset($edit)/admin/edit/project/{{$project->project_id}}/item/{{$item->item_id}} @endisset ">
+<form class="form-control" method="post" action="
+@empty($edit)
+/admin/add/project/{{$project_id}}
+@isset($multi)/multi/{{$multi->id}}/
+@endisset
+item
+@endempty
+@isset($edit)
+/admin/edit/project/{{$project->project_id}}
+@isset($multi)
+/multi/{{$multi->id}}/
+@endisset
+item/{{$item->item_id}}
+@endisset
+">
 	@if ($errors->any())
     <div class="alert alert-danger">
         <ul>

@@ -15,7 +15,7 @@ class AddForeignKeysToProjectsTable extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             $table->foreign(['latest'], '')->references(['id'])->on('items')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['user_id'], '')->references(['id'])->on('admins')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['user_id'], '')->references(['id'])->on('admins')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 

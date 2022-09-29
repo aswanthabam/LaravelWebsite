@@ -40,7 +40,7 @@ class Projects extends Model
     ];
     public function multi()
     {
-      return $thiss->hasOne(MultiItems::class,"project_id");
+      return $this->hasMany(MultiItems::class,"project_id");
     }
     public function allItems()
     {

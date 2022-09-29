@@ -6,17 +6,61 @@ use Illuminate\Http\Request;
 use App\Models\Projects;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Items;
+use App\Models\MultiItems;
 class ProjectsController extends Controller
 {
+    /*
+      URL : /admin/add/project/{project_id}/multi
+      METHOD : GET
+      DESCRIPTION : Form for adding new multi project environment 
+    */
+    public function addMulti(Request $request,$project_id)
+    {
+      $project = Projects::where("project_id",$project_id)->first();
+      if($project == null) return redirect("admin")->with("status","No project found");
+      return view("admin.form.add_multi",["project"=>$project]);
+    }
+    public function addMultiPost(Request $request,$project_id)
+    {
+      $project = Projects::where("project_id",$project_id)->first();
+      if($project == null) return redirect("admin")->with("status","No project found");
+      $multi = new MultiItems;
+      $multi->name = $request->string("name");
+      $multi->project_id = $project->id;
+      $multi->save();
+      return redirect("/admin/add/project/".$project_id."/multi/".$multi->id."/item");
+    }
+    public function deleteProject(Request $request, $project_id)
+    {
+      $project = Projects::where("project_id",$project_id)->first();
+    	if($project == null) return redirect("admin")->with("status","No project found");
+    	$project->delete();
+    	return redirect("admin")->with("status","Deleted project ".$project_id);
+    }
+    public function deleteItem(Request $request, $project_id,$item_id)
+    {
+      $project = Projects::where("project_id",$project_id)->first();
+    	if($project == null) return redirect("admin")->with("status","No project found");
+    	$item = Items::where(["item_id"=>$item_id,"project"=>$project->id])->first();
+    	if($item == null) return redirect("admin")->with("status","No Item found");
+    	return $item_id;
+    }
     public function viewItem(Request $request,$project_id,$item_id)
     {
     	// View an item for editing or vieing purpose
-    	return $project." | ".$item;
+    	$project = Projects::where("project_id",$project_id)->first();
+    	if($project == null) return redirect("admin")->with("status","No project found");
+    	$item = Items::where(["item_id"=>$item_id,"project"=>$project->id])->first();
+    	if($item == null) return redirect("admin")->with("status","No Item found");
+    	return "\n | \n".$item;
     }
     public function viewProject(Request $request,$project_id)
     {
     	// View a project for editing,adding or vieing purpose
-    	return $project;
+    	$project = Projects::where("project_id",$project_id)->first();
+    	if($project == null) return redirect("admin")->with("status","No project found");
+    	
+    	return view("admin.view.project_view",["project"=>$project]);
     }
     public function editItemPost(Request $request,$project_id,$item_id)
     {
@@ -108,17 +152,27 @@ class ProjectsController extends Controller
     	}*/
     	return redirect("admin")->with("status","Project Edited!");
     }
-    public function newItem(Request $request,$project_id)
+    public function newItem(Request $request,$project_id,$multi_id=null)
     {
     	// create New item form render
     	$project = Projects::where("project_id",$project_id)->first();
     	if($project == null) return redirect("admin")->with("status","No project with id ".$project_id);
-    	return view("admin.form.create_item",[
+    	if($multi_id != null)
+    	{
+    	  $multi = MultiItems::where("id",$multi_id)->first();
+    	  if($multi == null) return redirect("admin")->with("status","No Multi project environment found");
+    	  return view("admin.form.create_item",[
+        	"project_id"=>$project_id,
+        	"project"=>$project,
+        	"multi"=>$multi
+    	]); 
+    	}
+    	else return view("admin.form.create_item",[
         	"project_id"=>$project_id,
         	"project"=>$project
     	]);
     }
-    public function createItem(Request $request,$project_id)
+    public function createItem(Request $request,$project_id,$multi_id = null)
     {
     	// create New item form submission;
     	$project = Projects::where("project_id",$project_id)->first();
@@ -160,6 +214,18 @@ class ProjectsController extends Controller
     	{
     		$item->latest = $item->id;
     		$project->latest = $item->id;
+    		if($multi_id !=null)
+      	{
+      	  $multi = MultiItems::where("id",$multi_id)->first();
+      	  if($multi == null) return redirect("admin")->with("status","No Multi project environment found");
+      	  $multis = Items::where("multi_id",$multi_id)->get();
+      	  foreach ($multis as $mul)
+      	  {
+      	    $mul->is_latest = false;
+      	    $mul->latest = $item->id;
+      	    $mul->save();
+      	  }
+      	}
     	}else{
     		try {
     			$latest = Items::where(["project"=>$project->id,"is_latest"=>true])->first()->id;
@@ -168,6 +234,12 @@ class ProjectsController extends Controller
     		} catch (Exception ) {
     			return redirect("admin/add/project/".project_id."/item")->with("status","No other latest item found!");
     		}
+    	}
+    	if($multi_id !=null)
+    	{
+    	  $multi = MultiItems::where("id",$multi_id)->first();
+    	  if($multi == null) return redirect("admin")->with("status","No Multi project environment found");
+    	  $item->multi_id = $multi->id;
     	}
     	$item->save();
     	$project->save();

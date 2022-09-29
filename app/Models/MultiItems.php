@@ -21,7 +21,7 @@ class MultiItems extends Model
     {
       return $this->belongsTo(Projects::class,"project_id");
     }
-    public function items()
+    public function item()
     {
       return $this->hasMany(Items::class,"multi_id");
     }

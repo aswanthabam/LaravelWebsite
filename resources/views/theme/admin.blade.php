@@ -3,6 +3,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width"/>
 		<title>@yield("title")</title>
+		@yield("head-beg")
 		<link rel="stylesheet" href="/static/css/admin/base_style.css"/>
 		<link rel="stylesheet" href="/static/css/style.css"/>
 		
@@ -16,6 +17,8 @@
 		<!-- Bootstrap icons -->
 		
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+		
+		@yield("head")
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -23,12 +26,15 @@
 		        <div class="sidebar-big col-2 col-md-2 col-lg-3 bg-dark">
 		            <!-- Side menu -->
 		            <div class="sidebar-head">
+		              <img width="100%" src="/static/images/icons/icon_transparent.png"/>
 		                @yield("sidebar-top")
 		            </div>
 		            <div class="sidebar-cont">
+		              <a class="sidebar-item" href="/admin/projects"><i class="bi bi-person-workspace"></i> <span class="full">Projects</span></a>
 		                @yield("sidebar-cont")
 		            </div>
 		            <div class="sidebar-bottom">
+		              <a class="bottom-item" href="/logout"><i class="bi bi-box-arrow-left"></i> <span class="full">Logout</span></a>
 		                @yield("sidebar-bottom")
 		            </div>
 		        </div>

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Utils\StringUtils;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
@@ -25,17 +26,17 @@ class ProjectsFactory extends Factory
           $key = Str::random(random_int(3,8));
           $value = Str::random(random_int(5,10));
           $detail = $detail."\"".$key."\":\"".$value."\"";
-          if($i != $mm) $detail = $detail.",";
+          if($i != $mm-1) $detail = $detail.",";
           else $detail = $detail."}";
         }
         $keywords = "";
         for($i = 0;$i < $mm;$i++) $keywords = $keywords.Str::random(random_int(3,6)).", ";
         return [
           "project_id"=>Str::random(10),
-          "name"=>Str::random(10),
+          "name"=>StringUtils::paragraph(random_int(1,3)),
           "version_name"=>"v".random_int(0,9).".".random_int(0,9).".".random_int(0,9),
-          "description"=>Str::random(300),
-          "readme"=>Str::random(1000),
+          "description"=>StringUtils::paragraph(20),
+          "readme"=>StringUtils::paragraph(100),
           "author"=>Str::random(10),
           "platform"=>Str::random(5),
           "details"=>$detail,

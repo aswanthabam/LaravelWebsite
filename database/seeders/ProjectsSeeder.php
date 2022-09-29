@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
+use Illuminate\Database\Eloquent\Factories\Sequence;
 class ProjectsSeeder extends Seeder
 {
     /**
@@ -20,11 +20,11 @@ class ProjectsSeeder extends Seeder
      */
     public function run()
     {
-        $item = Items::factory()
-                  ->create();
-        Projects::factory()
-            ->count(5)
-            ->for($item,"latestItem")
-            ->create();
+        $project = Projects::factory()
+                      ->for(
+                          Items::factory(),"latestItem"
+                        )
+                      ->count(10)
+                      ->create();
     }
 }

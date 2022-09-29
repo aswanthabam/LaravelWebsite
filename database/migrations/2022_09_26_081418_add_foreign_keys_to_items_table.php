@@ -14,8 +14,9 @@ class AddForeignKeysToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->foreign(['latest'], '')->references(['id'])->on('items')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign(['user_id'], '')->references(['id'])->on('admins')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['latest'], '')->references(['id'])->on('items')->onUpdate('NO ACTION')->onDelete('CASCADE');
+            $table->foreign(['user_id'], '')->references(['id'])->on('admins')->onUpdate('NO ACTION')->onDelete('CASCADE');
+            $table->foreign(['multi_id'], '')->references(['id'])->on('multi_items')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 

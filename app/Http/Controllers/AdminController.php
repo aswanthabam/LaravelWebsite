@@ -16,8 +16,17 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-    	$projects = Projects::all();
+    	$projects = Projects::orderByDesc("ADDED_ON")->get()->take(2);
     	return view("admin.index",[
+    		"projects"=>$projects,
+    		"user"=>$request->user()
+    	]);
+    }
+    
+    public function projects(Request $request)
+    {
+      $projects = Projects::all();
+    	return view("admin.projects",[
     		"projects"=>$projects,
     		"user"=>$request->user()
     	]);
