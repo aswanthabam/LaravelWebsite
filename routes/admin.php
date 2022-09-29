@@ -18,6 +18,8 @@ Route::get("/admin",[AdminController::class,"index"])->middleware("auth:admin")-
 
 Route::get("/admin/projects",[AdminController::class,"projects"])->middleware("auth:admin")->name("admin-projects"); // Admin Projects all
 
+Route::get("/admin/items",[AdminController::class,"items"])->middleware("auth:admin")->name("admin-items"); // Admin Items all
+
 Route::get("/admin/add/project",[ProjectsController::class,"newProject"])->middleware("auth:admin")->name("create-project"); // Add new project
 
 Route::post("/admin/add/project",[ProjectsController::class,"createProject"])->middleware("auth:admin")->name("create-project-post"); // Commit the submission of new project
@@ -49,6 +51,8 @@ Route::post("/admin/edit/project/{project_id}/item/{item_id}",[ProjectsControlle
 Route::get("/admin/delete/project/{project_id}",[ProjectsController::class,"deleteProject"])->middleware("auth:admin")->name("delete-project"); // Delete project
 
 Route::get("/admin/delete/project/{project_id}/item/{item_id}",[ProjectsController::class,"deleteItem"])->middleware("auth:admin")->name("delete-item"); // Delete Item
+
+Route::get("/admin/delete/project/{project_id}/multi/{multi_id}",[ProjectsController::class,"deleteMulti"])->middleware("auth:admin")->name("delete-multi"); // Delete MultiItem
 
 
 

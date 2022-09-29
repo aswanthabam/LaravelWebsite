@@ -14,7 +14,8 @@ class MultiItems extends Model
     protected $dateFormat = "Y-m-d H:i:s";
     
     protected $fillable = [
-      "name"
+      "name",
+      "multi_id"
     ];
     
     public function project()

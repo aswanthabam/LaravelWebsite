@@ -10,7 +10,14 @@
 <center><h4>@isset($edit) Edit multi @endisset @empty($edit) Add @endempty Item</h4></center>
 @endif
 @if(!$project->single_item_project)
-<form class="form-control" method="post" action="@empty($edit) /admin/add/project/{{$project->project_id}}/multi @endempty @isset($edit)/admin/edit/project/{{$project->project_id}}/multu/{{$multi->multi_id}} @endisset ">
+<form class="form-control" method="post" action="
+@empty($edit)
+/admin/add/project/{{$project->project_id}}/multi
+@endempty
+@isset($edit)
+/admin/edit/project/{{$project->project_id}}/multi/{{$multi->multi_id}}
+@endisset
+">
 	@if ($errors->any())
     <div class="alert alert-danger">
         <ul>

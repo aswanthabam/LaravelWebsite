@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Users;
 use App\Models\Admin;
 use App\Models\Projects;
-use App\Models\Item;
+use App\Models\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
@@ -30,6 +30,14 @@ class AdminController extends Controller
     		"projects"=>$projects,
     		"user"=>$request->user()
     	]);
+    }
+    public function items(Request $request)
+    {
+      $items = Items::all();
+      return view("admin.items",[
+        "items"=>$items,
+        "user"=>$request->user()
+      ]);
     }
     
     public function login(Request $request)

@@ -9,7 +9,6 @@
 </style>
 @endsection
 @section("body")
-<div class="centering-element">
 <form class="form-control" action="authenticate" method="post">
 	<center><h3>Login</h3></center>
 	@csrf
@@ -21,5 +20,4 @@
 	</div>
 	<input type="submit" value="Login"/>
 </form>
-</div>
 @endsection

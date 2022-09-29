@@ -27,6 +27,7 @@
 		            <!-- Side menu -->
 		            <div class="sidebar-head">
 		              <img width="100%" src="/static/images/icons/icon_transparent.png"/>
+		              <span class="title">AVC Tech</span>
 		                @yield("sidebar-top")
 		            </div>
 		            <div class="sidebar-cont">

@@ -140,6 +140,5 @@
 {
 	.form-control
     {
-    	width: calc(100% - 30px);
-    }
+    	width: calc(100% - 30px);    }
 }

@@ -33,12 +33,13 @@
         <div class="card card-body">
           <h4>{{$multi->name}}</h4>
           @if($multi->item()->where("is_latest",true)->first() == null)
-          No items added <a href="/admin/add/project/{{$pro->project_id}}/multi/{{$multi->id}}/item" class="btn btn-light">Add</a>
+          No items added <a href="/admin/add/project/{{$pro->project_id}}/multi/{{$multi->multi_id}}/item" class="btn btn-light">Add</a>
           @else
           <p>
-            <small>{{$multi->item()->where("is_latest",true)->first()->release_name}}</small><br/>
-            <a href="/admin/add/project/{{$pro->project_id}}/multi/{{$multi->id}}/item" class="btn btn-light">Update</a>
-            <a href="/admin/edit/project/{{$pro->project_id}}/multi/{{$multi->id}}/item/{{$multi->item()->where("is_latest",true)->first()->item_id}}" class="btn btn-light">Edit</a>
+            <small>Release : <a href="/admin/edit/project/{{$pro->project_id}}/multi/{{$multi->multi_id}}/item/{{$multi->item()->where("is_latest",true)->first()->item_id}}">{{$multi->item()->where("is_latest",true)->first()->release_name}}</a></small><br/>
+            <a href="/admin/add/project/{{$pro->project_id}}/multi/{{$multi->multi_id}}/item" class="btn btn-light">Update</a>
+            <a href="/admin/edit/project/{{$pro->project_id}}/multi/{{$multi->multi_id}}/item/{{$multi->item()->where("is_latest",true)->first()->item_id}}" class="btn btn-light">Edit</a>
+            <a href="/admin/delete/project/{{$pro->project_id}}/multi/{{$multi->multi_id}}" class="btn btn-danger">Delete</a>
           </p>
           @endif
         </div>

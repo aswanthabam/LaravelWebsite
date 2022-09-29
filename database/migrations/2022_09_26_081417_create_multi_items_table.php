@@ -16,6 +16,7 @@ class CreateMultiItemsTable extends Migration
         Schema::create('multi_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
+            $table->string('multi_id')->unique()->nullable();
             $table->integer('project_id')->nullable();
             $table->dateTime('ADDED_ON')->nullable();
             $table->dateTime('CHANGED_ON')->nullable();

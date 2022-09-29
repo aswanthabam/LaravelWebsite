@@ -7,17 +7,14 @@ use App\Models\Projects;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Items;
 use App\Models\MultiItems;
+use App\Utils\StringUtils;
 class ProjectsController extends Controller
 {
     /*
     |--------------------------------------------------
-    | HEADER 
-    |--------------------------------------------------
     | FUNCTION : addMulti(Request, project_id) : view
     | URL : /admin/add/project/{project_id}/multi 
     | METHOD : GET 
-    |--------------------------------------------------
-    | DESCRIPTION 
     |--------------------------------------------------
     | FORM FOR ADDING NEW MULTI PROJECT ENVIRONMENT.
     |
@@ -30,13 +27,9 @@ class ProjectsController extends Controller
     }
     /*
     |--------------------------------------------------
-    | HEADER 
-    |--------------------------------------------------
     | FUNCTION : addMultiPost(Request, project_id) : redirect(admin/add/projects/{project_id}/multi/{multi_id}/item)
     | URL : /admin/add/project/{project_id}/multi 
-    | METHOD : POSTA 
-    |--------------------------------------------------
-    | DESCRIPTION 
+    | METHOD : POST
     |--------------------------------------------------
     | ADD NEW MULTI PROJECT ENVIRONMENT.
     |
@@ -49,8 +42,19 @@ class ProjectsController extends Controller
       $multi->name = $request->string("name");
       $multi->project_id = $project->id;
       $multi->save();
-      return redirect("/admin/add/project/".$project_id."/multi/".$multi->id."/item");
+      $multi->multi_id = StringUtils::base64url_encode("mu-".$multi->id);
+      $multi->save();
+      return redirect("/admin/add/project/".$project_id."/multi/".$multi->multi_id."/item");
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : deleteProject(Request, project_id) : redirect(admin)
+    | URL : /admin/delete/project/{project_id}
+    | METHOD : GET
+    |--------------------------------------------------
+    | DELETE A PROJECT
+    |
+    */
     public function deleteProject(Request $request, $project_id)
     {
       $project = Projects::where("project_id",$project_id)->first();
@@ -58,13 +62,41 @@ class ProjectsController extends Controller
     	$project->delete();
     	return redirect("admin")->with("status","Deleted project ".$project_id);
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : deleteItem(Request, project_id,item_id) : redirect(admin)
+    | URL : /admin/delete/project/{project_id}/item/{item_id}
+    | METHOD : GET
+    |--------------------------------------------------
+    | DELETE AN ITEM
+    |
+    */
     public function deleteItem(Request $request, $project_id,$item_id)
     {
       $project = Projects::where("project_id",$project_id)->first();
     	if($project == null) return redirect("admin")->with("status","No project found");
     	$item = Items::where(["item_id"=>$item_id,"project"=>$project->id])->first();
     	if($item == null) return redirect("admin")->with("status","No Item found");
-    	return $item_id;
+      $item->delete();
+    	return redirect("admin")->with("status","Deleted item ".$item_id);
+    }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : deleteMulti(Request, project_id,multi_id) : redirect(admin)
+    | URL : /admin/delete/project/{project_id}/multi/{multi_id}
+    | METHOD : GET
+    |--------------------------------------------------
+    | DELETE A MULTI ENVIORNMENT
+    |
+    */
+    public function deleteMulti(Request $request, $project_id,$multi_id)
+    {
+      $project = Projects::where("project_id",$project_id)->first();
+      if($project == null) return redirect("admin")->with("status","No project found");
+      $multi = MultiItems::where(["multi_id"=>$multi_id,"project_id"=>$project->id])->first();
+      if($multi == null) return redirect("admin")->with("status","No Enviornment found");
+      $multi->delete();
+      return redirect("admin")->with("status","Deleted Enviornment ".$multi_id);
     }
     public function viewItem(Request $request,$project_id,$item_id)
     {
@@ -180,7 +212,7 @@ class ProjectsController extends Controller
     	if($project == null) return redirect("admin")->with("status","No project with id ".$project_id);
     	if($multi_id != null)
     	{
-    	  $multi = MultiItems::where("id",$multi_id)->first();
+    	  $multi = MultiItems::where("multi_id",$multi_id)->first();
     	  if($multi == null) return redirect("admin")->with("status","No Multi project environment found");
     	  return view("admin.form.create_item",[
         	"project_id"=>$project_id,
@@ -229,7 +261,7 @@ class ProjectsController extends Controller
     	$item->version = $version;
     	
     	$item->save();
-    	$item_id = base64url_encode("pr-".$project->id.$item->id);
+    	$item_id = StringUtils::base64url_encode("pr-".$project->id.$item->id);
     	$item->item_id = $item_id;
     	if($item->is_latest)
     	{
@@ -237,9 +269,9 @@ class ProjectsController extends Controller
     		$project->latest = $item->id;
     		if($multi_id !=null)
       	{
-      	  $multi = MultiItems::where("id",$multi_id)->first();
+      	  $multi = MultiItems::where("multi_id",$multi_id)->first();
       	  if($multi == null) return redirect("admin")->with("status","No Multi project environment found");
-      	  $multis = Items::where("multi_id",$multi_id)->get();
+      	  $multis = Items::where("multi_id",$multi->id)->get();
       	  foreach ($multis as $mul)
       	  {
       	    $mul->is_latest = false;
@@ -258,7 +290,7 @@ class ProjectsController extends Controller
     	}
     	if($multi_id !=null)
     	{
-    	  $multi = MultiItems::where("id",$multi_id)->first();
+    	  $multi = MultiItems::where("multi_id",$multi_id)->first();
     	  if($multi == null) return redirect("admin")->with("status","No Multi project environment found");
     	  $item->multi_id = $multi->id;
     	}
@@ -306,37 +338,4 @@ class ProjectsController extends Controller
     	}
     	return redirect("admin")->with("status","Project Created!");
     }
-}
-
-
-function base64url_encode($data)
-{
-  // First of all you should encode $data to Base64 string
-  $b64 = base64_encode($data);
-
-  // Make sure you get a valid result, otherwise, return FALSE, as the base64_encode() function do
-  if ($b64 === false) {
-    return false;
-  }
-
-  // Convert Base64 to Base64URL by replacing “+” with “-” and “/” with “_”
-  $url = strtr($b64, '+/', '-_');
-
-  // Remove padding character from the end of line and return the Base64URL result
-  return rtrim($url, '=');
-}
-
-/**
- * Decode data from Base64URL
- * @param string $data
- * @param boolean $strict
- * @return boolean|string
- */
-function base64url_decode($data, $strict = false)
-{
-  // Convert Base64URL to Base64 by replacing “-” with “+” and “_” with “/”
-  $b64 = strtr($data, '-_', '+/');
-
-  // Decode Base64 string and return the original data
-  return base64_decode($b64, $strict);
 }
