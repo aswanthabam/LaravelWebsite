@@ -10,19 +10,17 @@ use App\Models\MultiItems;
 class ProjectsController extends Controller
 {
     /*
-    |________________________________________________________|
-    | addMulti(Request, project_id) : view                   |
-    |________________________________________________________|
-    | HEADER                                                 |
-    |________________________________________________________|
-    | URL : /admin/add/project/{project_id}/multi            |
-    | METHOD : GET                                           |
-    |________________________________________________________|
-    | DESCRIPTION                                            |
-    |________________________________________________________|
-    | FORM FOR ADDING NEW MULTI PROJECT ENVIRONMENT          |
-    |________________________________________________________|
-    |                                                        |
+    |--------------------------------------------------
+    | HEADER 
+    |--------------------------------------------------
+    | FUNCTION : addMulti(Request, project_id) : view
+    | URL : /admin/add/project/{project_id}/multi 
+    | METHOD : GET 
+    |--------------------------------------------------
+    | DESCRIPTION 
+    |--------------------------------------------------
+    | FORM FOR ADDING NEW MULTI PROJECT ENVIRONMENT.
+    |
     */
     public function addMulti(Request $request,$project_id)
     {
@@ -31,19 +29,17 @@ class ProjectsController extends Controller
       return view("admin.form.add_multi",["project"=>$project]);
     }
     /*
-      |________________________________________________________|
-      | addMultiPost(Request, project_id) : view               |
-      |________________________________________________________|
-      | HEADER                                                 |
-      |________________________________________________________|
-      | URL : /admin/add/project/{project_id}/multi            |
-      | METHOD : GET                                           |
-      |________________________________________________________|
-      | DESCRIPTION                                            |
-      |________________________________________________________|
-      | FORM FOR ADDING NEW MULTI PROJECT ENVIRONMENT          |
-      |________________________________________________________|
-      |                                                        |
+    |--------------------------------------------------
+    | HEADER 
+    |--------------------------------------------------
+    | FUNCTION : addMultiPost(Request, project_id) : redirect(admin/add/projects/{project_id}/multi/{multi_id}/item)
+    | URL : /admin/add/project/{project_id}/multi 
+    | METHOD : POSTA 
+    |--------------------------------------------------
+    | DESCRIPTION 
+    |--------------------------------------------------
+    | ADD NEW MULTI PROJECT ENVIRONMENT.
+    |
     */
     public function addMultiPost(Request $request,$project_id)
     {
