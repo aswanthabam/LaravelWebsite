@@ -10,9 +10,19 @@ use App\Models\MultiItems;
 class ProjectsController extends Controller
 {
     /*
-      URL : /admin/add/project/{project_id}/multi
-      METHOD : GET
-      DESCRIPTION : Form for adding new multi project environment 
+    |________________________________________________________|
+    | addMulti(Request, project_id) : view                   |
+    |________________________________________________________|
+    | HEADER                                                 |
+    |________________________________________________________|
+    | URL : /admin/add/project/{project_id}/multi            |
+    | METHOD : GET                                           |
+    |________________________________________________________|
+    | DESCRIPTION                                            |
+    |________________________________________________________|
+    | FORM FOR ADDING NEW MULTI PROJECT ENVIRONMENT          |
+    |________________________________________________________|
+    |                                                        |
     */
     public function addMulti(Request $request,$project_id)
     {
@@ -20,6 +30,21 @@ class ProjectsController extends Controller
       if($project == null) return redirect("admin")->with("status","No project found");
       return view("admin.form.add_multi",["project"=>$project]);
     }
+    /*
+      |________________________________________________________|
+      | addMultiPost(Request, project_id) : view               |
+      |________________________________________________________|
+      | HEADER                                                 |
+      |________________________________________________________|
+      | URL : /admin/add/project/{project_id}/multi            |
+      | METHOD : GET                                           |
+      |________________________________________________________|
+      | DESCRIPTION                                            |
+      |________________________________________________________|
+      | FORM FOR ADDING NEW MULTI PROJECT ENVIRONMENT          |
+      |________________________________________________________|
+      |                                                        |
+    */
     public function addMultiPost(Request $request,$project_id)
     {
       $project = Projects::where("project_id",$project_id)->first();
