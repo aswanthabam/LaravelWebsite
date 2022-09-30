@@ -98,6 +98,15 @@ class ProjectsController extends Controller
       $multi->delete();
       return redirect("admin")->with("status","Deleted Enviornment ".$multi_id);
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : viewItem(Request, project_id,item_id) : view(admin.view.item_view)
+    | URL : /admin/view/project/{project}/item/{item}
+    | METHOD : GET
+    |--------------------------------------------------
+    | VIEW AN ITEM FOR ADMINSTRATION
+    |
+    */
     public function viewItem(Request $request,$project_id,$item_id)
     {
     	// View an item for editing or vieing purpose
@@ -105,8 +114,17 @@ class ProjectsController extends Controller
     	if($project == null) return redirect("admin")->with("status","No project found");
     	$item = Items::where(["item_id"=>$item_id,"project"=>$project->id])->first();
     	if($item == null) return redirect("admin")->with("status","No Item found");
-    	return "\n | \n".$item;
+    	return view("admin.view.item_view",["item"=>$item]);
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : viewItem(Request, project_id) : view(admin.view.project_view)
+    | URL : /admin/view/project/{project}
+    | METHOD : GET
+    |--------------------------------------------------
+    | VIEW A PROJECT FOR ADMINSTRATION
+    |
+    */
     public function viewProject(Request $request,$project_id)
     {
     	// View a project for editing,adding or vieing purpose
@@ -115,6 +133,31 @@ class ProjectsController extends Controller
     	
     	return view("admin.view.project_view",["project"=>$project]);
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : editItem(Request, project_id,item_id) : view(admin.form.create_item)
+    | URL : /admin/edit/project/{project_id}/item/{item_id}
+    | METHOD : GET
+    |--------------------------------------------------
+    | RETUEN FORM TO EDIT AN ITEM
+    |
+    */
+    public function editItem(Request $request,$project_id,$item_id)
+    {
+      $project = Projects::where("project_id",$project_id)->first();
+      if($project == null) return redirect("admin")->with("status","No project with id ".$project_id);
+      $item = Items::where("item_id",$item_id)->first();
+      if($item == null) return redirect("admin")->with("status","No item with id ".$item_id);
+      return view("admin.form.create_item",["edit"=>true,"project"=>$project,"item"=>$item]);
+    }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : editItemPost(Request, project_id,item_id) : redirect(admin)
+    | URL : /admin/edit/project/{project_id}/item/{item_id}
+    | METHOD : POST
+    |--------------------------------------------------
+    | SAVES DATA SEND FROM THE EDIT ITEM FORM
+    */
     public function editItemPost(Request $request,$project_id,$item_id)
     {
     	$project = Projects::where("project_id",$project_id)->first();
@@ -158,20 +201,30 @@ class ProjectsController extends Controller
     	$project->save();
     	return redirect("admin")->with("status","Item saved");
     }
-    public function editItem(Request $request,$project_id,$item_id)
-    {
-    	$project = Projects::where("project_id",$project_id)->first();
-    	if($project == null) return redirect("admin")->with("status","No project with id ".$project_id);
-    	$item = Items::where("item_id",$item_id)->first();
-    	if($item == null) return redirect("admin")->with("status","No item with id ".$item_id);
-    	return view("admin.form.create_item",["edit"=>true,"project"=>$project,"item"=>$item]);
-    }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : editProject(Request, project_id) : view(admin.form.create_project)
+    | URL : /admin/edit/project/{project_id}
+    | METHOD : GET
+    |--------------------------------------------------
+    | RETUEN FORM TO EDIT A PROJECT
+    |
+    */
     public function editProject(Request $request,$project_id)
     {
     	$project = Projects::where("project_id",$project_id)->first();
     	if($project == null) return redirect("admin")->with("status","No project with id ".$project_id);
     	return view("admin.form.create_project",["edit"=>true,"project"=>$project]);
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : editProjectPost(Request, project_id) : redirect(admin)
+    | URL : /admin/edit/project/{project_id}
+    | METHOD : POST
+    |--------------------------------------------------
+    | SAVE A REQUEST FROM EDIT PROJECT FORM
+    |
+    */
     public function editProjectPost(Request $request,$project_id)
     {
     	$validate = $request->validate([
@@ -200,11 +253,17 @@ class ProjectsController extends Controller
     	$project->version = 1;
     	$project->user_id = $request->user()->id;
     	$project->save();
-    	/*if($single){
-    		return redirect("admin/edit/project/".$project->project_id."/item/")->with("status","Project Edited!");
-    	}*/
     	return redirect("admin")->with("status","Project Edited!");
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : newItem(Request, project_id,$multi_id=null) : view(admin.form.create_item)
+    | URL : /admin/add/project/{project}/item || /admin/add/project/{project}/multi/{item}/item
+    | METHOD : GET
+    |--------------------------------------------------
+    | RETUEN FORM TO ADD AN ITEM
+    |
+    */
     public function newItem(Request $request,$project_id,$multi_id=null)
     {
     	// create New item form render
@@ -225,6 +284,15 @@ class ProjectsController extends Controller
         	"project"=>$project
     	]);
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : createItem(Request, project_id,$multi_id=null) : redirect(admin)
+    | URL : /admin/add/project/{project}/item || /admin/add/project/{project}/multi/{item}/item
+    | METHOD : POST
+    |--------------------------------------------------
+    | SAVE ITEM FROM THE REQUEST SEND FROM THE CREATE FORM
+    |
+    */
     public function createItem(Request $request,$project_id,$multi_id = null)
     {
     	// create New item form submission;
@@ -298,12 +366,29 @@ class ProjectsController extends Controller
     	$project->save();
     	return redirect("admin")->with("status","Item saved");
     }
+    /*
+    |--------------------------------------------------
+    | FUNCTION : newProject(Request) : view(admin.form.create_project)
+    | URL : /admin/add/project
+    | METHOD : GET
+    |--------------------------------------------------
+    | RETURN FORM FOR CREATING A PROJECT
+    |
+    */
     public function newProject(Request $request)
     {
     	// Create new project form render
     	return view('admin.form.create_project');
     }
-    
+    /*
+    |--------------------------------------------------
+    | FUNCTION : createProject(Request) : view(admin.form.create_project)
+    | URL : /admin/add/project
+    | METHOD : POST
+    |--------------------------------------------------
+    | SAVES A PROJRCT FROM THE REQUEST FORM
+    |
+    */
     public function createProject(Request $request)
     {
     	$validate = $request->validate([
