@@ -31,7 +31,8 @@
 		                @yield("sidebar-top")
 		            </div>
 		            <div class="sidebar-cont">
-		              <a class="sidebar-item" href="/admin/projects"><i class="bi bi-person-workspace"></i> <span class="full">Projects</span></a>
+		              <a class="sidebar-item" href="/admin"><i class="bi bi-columns-gap"></i> <span class="full">Dashboard</span></a>
+		              <a class="sidebar-item" href="/admin/projects"><i class="bi bi-box"></i> <span class="full">Projects</span></a>
 		                @yield("sidebar-cont")
 		            </div>
 		            <div class="sidebar-bottom">
@@ -40,14 +41,14 @@
 		            </div>
 		        </div>
 		        <div class="main-cont col-10 col-md-10 col-lg-9">
-		        	<div class="status">
 					@if (session('status'))
+					<div class="status">
 					<div class="alert alert-success alert-dismissible">
 						{{ session('status') }}
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
+					</div>
 					@endif
-				</div>
 		            @yield("body")
 		        </div>
 		    </div>

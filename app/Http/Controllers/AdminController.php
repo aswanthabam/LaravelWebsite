@@ -11,15 +11,19 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\Auth\AuthRequest;
 use Illuminate\Support\Facades\Auth;
-
+use App\Utils\Project;
+use App\Utils\Item;
+use App\Utils\Enviornment;
 class AdminController extends Controller
 {
     public function index(Request $request)
     {
     	$projects = Projects::orderByDesc("ADDED_ON")->get()->take(2);
+    	$pm = new Project($projects[0]);
     	return view("admin.index",[
     		"projects"=>$projects,
-    		"user"=>$request->user()
+    		"user"=>$request->user(),
+    		"pm"=>$pm
     	]);
     }
     

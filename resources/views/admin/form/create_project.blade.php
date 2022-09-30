@@ -117,8 +117,10 @@ Admin Panel
 @endsection
 
 @section("script")
+setDatePiker();
 otherDetails = {}
 init();
+
 function init()
 {
    var item = document.getElementById("details-items")
@@ -182,21 +184,20 @@ function addData(elem)
 function setDatePiker()
 {
 	picker = document.getElementById("created_date");
-	cont = document.getElementById("created_date_cont");
+	date_cont = document.getElementById("created_date_cont");
 	
-	cont.onfocus = function (e)
+	date_cont.onfocus = function (e)
 	{
 		picker.click();
 	}
 	picker.onchange = function()
 	{
-		cont.value = picker.value;
+		date_cont.value = picker.value;
 		picker.value = "";
 	}
-	cont.onchange = function()
+	date_cont.onchange = function()
 	{
-		alert(new Date(cont.value))
+		alert(new Date(date_cont.value))
 	}
 }
-setDatePiker();
 @endsection

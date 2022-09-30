@@ -46,9 +46,9 @@ class Projects extends Model
     {
       return $this->hasMany(Items::class,"project_id");
     }
-    public function user_id()
+    public function user()
     {
-    	return $this->hasOne(User::class);
+    	return $this->belongsTo(User::class,"user_id");
     }
     public function latestItem()
     {

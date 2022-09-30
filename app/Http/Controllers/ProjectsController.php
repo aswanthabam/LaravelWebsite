@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Items;
 use App\Models\MultiItems;
 use App\Utils\StringUtils;
+use App\Utils\Project;
+
 class ProjectsController extends Controller
 {
     /*
@@ -237,7 +239,7 @@ class ProjectsController extends Controller
     	$project = Projects::where("project_id",$project_id)->first();
     	if($project == null) return redirect("admin")->with("status","No project ".$project_id);
     	//$project->project_id = $request->string('project_id');
-    	if(create_project($project,$request,true))
+    	if(Project::create_project($project,$request,true))
       {
         return redirect("admin")->with("status","Project Edited!");
       }
@@ -392,9 +394,9 @@ class ProjectsController extends Controller
 //    	$code = Hash::make(''.$request->name.$request->version.$request->version_id);
     	$project = new Projects;
    
-    	if(create_project($project,$request,true))
+    	if(Project::create_project($project,$request,true))
       {
-      	if($$project->single_item_project){
+      	if($project->single_item_project){
       		return redirect("admin/add/project/".$project->project_id."/item")->with("status","Project Created!");
       	}
       	return redirect("admin")->with("status","Project Created!");
@@ -403,40 +405,5 @@ class ProjectsController extends Controller
       {
         return redirect("admin/add/project/")->withError("Unable to create project");
       }
-    }
-    /*
-    |--------------------------------------------------
-    | FUNCTION : create_project(Project,Request,is_new) : boolean
-    | URL : NONE
-    | METHOD : NONE
-    |--------------------------------------------------
-    | SAVES A PROJRCT FROM THE REQUEST
-    |
-    */
-    public function create_project($project,$request,$new=false)
-    {
-      try {
-        if($new) $project->project_id = $request->string('project_id');
-        $project->name = $request->string("name");
-        $project->description = $request->string("description");
-        $project->version_name = $request->string("version");
-        $project->author = $request->string("author");
-        $project->readme = $request->string("readme");
-        $project->keywords = $request->string("keywords");
-        $project->created_at = $request->date("created_date");
-        $project->platform = $request->string("platform");
-        $project->details = $request->string("details");
-        $project->image = $request->string("image");
-        $project->author_link = $request->string("author_link");
-        $single = $request->boolean("single_item_project");
-        $project->single_item_project = $single;
-        $project->version = 1;
-        $project->user_id = $request->user()->id;
-        $project->save();
-        return true;
-      } catch (Exception $e) {
-        return false;
-      }
-      
     }
 }
