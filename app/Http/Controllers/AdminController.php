@@ -25,7 +25,7 @@ class AdminController extends Controller
     
     public function projects(Request $request)
     {
-      $projects = Projects::all();
+      $projects = Projects::orderByDesc("ADDED_ON")->get();
     	return view("admin.projects",[
     		"projects"=>$projects,
     		"user"=>$request->user()
@@ -33,7 +33,7 @@ class AdminController extends Controller
     }
     public function items(Request $request)
     {
-      $items = Items::all();
+      $items = Items::orderByDesc("ADDED_ON")->get();
       return view("admin.items",[
         "items"=>$items,
         "user"=>$request->user()

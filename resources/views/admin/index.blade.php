@@ -56,7 +56,7 @@
   <div class="options col-12">
     <a href="/admin/view/project/{{$pro->project_id}}" class="btn btn-light">More</a>
     <a href="/projects/{{$pro->project_id}}" class="btn btn-light">View</a>
-     <a href="/admin/add/project/{{$pro->project_id}}/item" class="btn btn-light"> @if($pro->single_item_project) Update @else New @endif </a>
+     @if($pro->single_item_project)<a href="/admin/add/project/{{$pro->project_id}}/item" class="btn btn-light">Update</a>@endif
      <a href="/admin/edit/project/{{$pro->project_id}}" class="btn btn-light">Edit</a>
      <a href="/admin/delete/project/{{$pro->project_id}}" class="btn btn-danger">Delete</a>
   </div>
