@@ -6,10 +6,10 @@ use App\Models\Projects;
 use App\Models\Items;
 use App\Models\MultiItems;
 
-class Environment
+class Enviornment
 {
-  $multi = null;
-  $project = null;
+  public $multi = null;
+  public $project = null;
   public function __construct($multi)
   {
     $this->project = $multi->project;

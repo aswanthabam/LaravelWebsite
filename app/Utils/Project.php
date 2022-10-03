@@ -51,7 +51,7 @@ class Project
   {
     if(!$this->is_multi()) return null;
     $ar = [];
-    foreach($this->multi as $mu) array_push($ar,new Enviornment($mu));
+    foreach($this->project->multi as $mu) array_push($ar,new Enviornment($mu));
     return $mu;
   }
   

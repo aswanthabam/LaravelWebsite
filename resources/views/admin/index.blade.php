@@ -8,7 +8,7 @@
 <h5><b>Welcome {{$user->name}}</b></h5>
 <a class="btn btn-primary" href="/admin/add/project">New project</a>
 <div style="overflow: hidden;white-space: initial" class="projects col-12">
-  {{$pm}}
+  {{$pm->get_enviornments()}}
 <h4>Projects</h4>
 @foreach($projects as $pro)
 <div class="project">
